@@ -39,3 +39,24 @@ class WeatherAPITestCase(APITestCase):
         # The filter should cut off Warsaw and return ONLY 1 station (Włodawa)
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]['name'], "WŁODAWA")
+
+    def test_weather_stats_calculation(self):
+        """Test calculation of the weather statistics."""
+        WeatherMeasurement.objects.create(
+            station=self.station1,
+            air_temp=20.0,
+            humidity=80.0
+        )
+        WeatherMeasurement.objects.create(
+            station=self.station1,
+            air_temp=10.0,
+            humidity=60.0
+        )
+
+        stats_url = reverse('weather_stats')
+        response = self.client.get(stats_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        self.assertEqual(response.data['najwyzsza_temp'], 20.0)
+        self.assertEqual(response.data['najnizsza_temp'], 10.0)
+        self.assertEqual(response.data['srednia_wilgotnosc'], 70.0)
