@@ -4,8 +4,8 @@ class Station(models.Model):
     """Weather station IMGW."""
     code = models.CharField(max_length=20, unique=True)
     name = models.CharField(max_length=100)
-    latitude = models.FloatField(null=True, blank=True) #lon
-    longitude = models.FloatField(null=True, blank=True) #lat
+    latitude = models.FloatField(null=True, blank=True) #lan
+    longitude = models.FloatField(null=True, blank=True) #lot
 
     def __str__(self):
         return f"{self.name} - {self.code}"
