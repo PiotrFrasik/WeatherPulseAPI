@@ -14,4 +14,5 @@ class WeatherMeasurementListView(generics.ListAPIView):
     serializer_class = WeatherMeasurementSerializer
     filter_backends = [filters.OrderingFilter, filters.SearchFilter]
     search_fields  = ['station__name']
-    ordering_fields = ['station__name']
+    ordering_fields = ['station__name', 'created_at']
+    ordering = ['-created_at'] # Default sorting
