@@ -81,7 +81,7 @@ DATABASES = {
         'USER': 'weather_user',
         'PASSWORD': 'weather_pass123',
         'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'PORT': '5433',
         'OPTIONS': {'client_encoding': 'UTF8'}, # Dodano tę linię
     }
 }
