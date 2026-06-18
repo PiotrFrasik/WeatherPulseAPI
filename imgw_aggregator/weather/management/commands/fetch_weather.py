@@ -1,7 +1,7 @@
 import requests
 from datetime import datetime
 from django.core.management.base import BaseCommand
-from django.utils.timezone import make_aware, now
+from django.utils.timezone import make_aware
 from weather.models import Station, WeatherMeasurement
 
 class Command(BaseCommand):
@@ -43,7 +43,8 @@ class Command(BaseCommand):
 
         try:
             station = Station.objects.get(code=station_data["kod_stacji"])
-            return WeatherMeasurement.objects.create(station=station,
+
+            return WeatherMeasurement.objects.get_or_create(station=station,
                                               ground_temp=float_converting(station_data["temperatura_gruntu"]),
                                               ground_temp_date=datatime_converting(
                                                   station_data["temperatura_gruntu_data"]),
@@ -52,7 +53,8 @@ class Command(BaseCommand):
                                                   station_data["temperatura_powietrza_data"]),
                                               wind_speed=float_converting(station_data["wiatr_srednia_predkosc"]),
                                               humidity=float_converting(station_data["wilgotnosc_wzgledna"]),
-                                              rainfall=float_converting(station_data["opad_10min"]))
+                                              rainfall=float_converting(station_data["opad_10min"]),)
+
         except Exception as e:
             self.stdout.write(self.style.ERROR(f"Error getting object - station : {e}"))
         return None
