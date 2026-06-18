@@ -18,6 +18,8 @@ def api_entry_point(request, format=None):
         'Weather easurement': reverse('weather_measurement_list', request=request, format=format),
         'Weather stations': reverse('station_list', request=request, format=format),
         'Weather stats': reverse('weather_stats', request=request, format=format),
+        'Swagger Docs': reverse('swagger-ui', request=request, format=format),
+        'Swagger JSON': reverse('schema', request=request, format=format),
     })
 
 class StationListView(ListAPIView):
@@ -43,9 +45,9 @@ class WeatherStatsView(APIView):
             lowest_air_temp=Min('air_temp'),
             average_air_temp=Avg('air_temp'),
             # Ground temp
-            highest_ground_temp_temp=Max('ground_temp'),
-            lowest_ground_temp_temp=Min('ground_temp'),
-            average_ground_temp_temp=Avg('ground_temp'),
+            highest_ground_temp=Max('ground_temp'),
+            lowest_ground_temp=Min('ground_temp'),
+            average_ground_temp=Avg('ground_temp'),
             # Humidity
             srednia_wilgotnosc=Avg('humidity')
         )
