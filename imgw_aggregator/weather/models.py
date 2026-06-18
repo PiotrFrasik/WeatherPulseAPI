@@ -32,6 +32,12 @@ class WeatherMeasurement(models.Model):
     # Newest measurements will be first
     class Meta:
         ordering = ['-created_at']
+        constraints = [
+            models.UniqueConstraint(
+                fields=['station', 'air_temp_date'],
+                name='unique_station_air_temp_date'
+            )
+        ]
 
     def __str__(self):
         return f"Measurements for {self.station} at {self.created_at.strftime('%Y-%m-%d %H:%M')}"
