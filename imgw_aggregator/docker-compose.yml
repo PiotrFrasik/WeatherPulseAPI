@@ -6,7 +6,7 @@ services:
     environment:
       - POSTGRES_DB=weather_db
       - POSTGRES_USER=weather_user
-      - POSTGRES_PASSWORD=weather_pass
+      - POSTGRES_PASSWORD=weather_pass123
     ports:
       - "5432:5432"
     volumes:
