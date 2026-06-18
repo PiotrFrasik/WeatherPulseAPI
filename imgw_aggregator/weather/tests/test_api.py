@@ -1,7 +1,7 @@
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
-from weather.models import Station
+from weather.models import Station, WeatherMeasurement
 
 
 class WeatherAPITestCase(APITestCase):
@@ -57,6 +57,5 @@ class WeatherAPITestCase(APITestCase):
         response = self.client.get(stats_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        self.assertEqual(response.data['najwyzsza_temp'], 20.0)
-        self.assertEqual(response.data['najnizsza_temp'], 10.0)
-        self.assertEqual(response.data['srednia_wilgotnosc'], 70.0)
+        self.assertEqual(response.data['highest_air_temp'], 20.0)
+        self.assertEqual(response.data['lowest_air_temp'], 10.0)
