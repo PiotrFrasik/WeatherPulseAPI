@@ -1,5 +1,8 @@
 # WeatherPulseAPI
 
+**Live Demo:** [https://weatherpulseapi.onrender.com/api/schema/swagger-ui/](https://weatherpulseapi.onrender.com/api/schema/swagger-ui/)  
+*(Note: As the project is hosted on a free cloud tier, the initial request may take up to 50 seconds to wake up the server).*
+
 WeatherPulseAPI is a Django-based REST API that periodically aggregates real-time weather data from Poland's IMGW meteorological service using Celery and Redis. The system automatically stores these weather metrics in a PostgreSQL database and exposes clean API endpoints for weather stations, measurements, and statistics.
 
 ## Setup and Running
