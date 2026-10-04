@@ -133,6 +133,12 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'WeatherPulse API',
+    'DESCRIPTION': 'A RESTful API providing live weather data automatically aggregated from external meteorological providers (IMGW). It features dynamic data filtering, sorting, and automatically synchronizes weather measurements in the background.',
+    'VERSION': '1.0.0',
+}
+
 # Celery and Redis
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', 'redis://127.0.0.1:6379/0')
 CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', 'redis://127.0.0.1:6379/0')
