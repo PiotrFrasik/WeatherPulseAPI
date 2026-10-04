@@ -44,16 +44,17 @@ class Command(BaseCommand):
         try:
             station = Station.objects.get(code=station_data["kod_stacji"])
 
+            air_temp_date = datatime_converting(station_data.get("temperatura_powietrza_data"))
             return WeatherMeasurement.objects.update_or_create(
                 station=station,
+                air_temp_date=air_temp_date,
                 defaults={
-                    'ground_temp': float_converting(station_data["temperatura_gruntu"]),
-                    'ground_temp_date': datatime_converting(station_data["temperatura_gruntu_data"]),
-                    'air_temp': float_converting(station_data["temperatura_powietrza"]),
-                    'air_temp_date': datatime_converting(station_data["temperatura_powietrza_data"]),
-                    'wind_speed': float_converting(station_data["wiatr_srednia_predkosc"]),
-                    'humidity': float_converting(station_data["wilgotnosc_wzgledna"]),
-                    'rainfall': float_converting(station_data["opad_10min"]),
+                    'ground_temp': float_converting(station_data.get("temperatura_gruntu")),
+                    'ground_temp_date': datatime_converting(station_data.get("temperatura_gruntu_data")),
+                    'air_temp': float_converting(station_data.get("temperatura_powietrza")),
+                    'wind_speed': float_converting(station_data.get("wiatr_srednia_predkosc")),
+                    'humidity': float_converting(station_data.get("wilgotnosc_wzgledna")),
+                    'rainfall': float_converting(station_data.get("opad_10min")),
                 }
             )
 
