@@ -59,3 +59,4 @@ class WeatherAPITestCase(APITestCase):
 
         self.assertEqual(response.data['highest_air_temp'], 20.0)
         self.assertEqual(response.data['lowest_air_temp'], 10.0)
+        self.assertEqual(response.data['average_humidity'], 70.0)
