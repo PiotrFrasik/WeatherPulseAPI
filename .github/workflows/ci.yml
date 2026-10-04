@@ -1,0 +1,69 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: weather_db
+          POSTGRES_USER: weather_user
+          POSTGRES_PASSWORD: weather_pass123
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff
+          pip install -r imgw_aggregator/requirements.txt
+
+      - name: Run Django Tests
+        env:
+          DEBUG: 'True'
+          SECRET_KEY: 'ci-secret-key-for-testing'
+          DB_NAME: 'weather_db'
+          DB_USER: 'weather_user'
+          DB_PASSWORD: 'weather_pass123'
+          DB_HOST: '127.0.0.1'
+          DB_PORT: '5432'
+          CELERY_BROKER_URL: 'redis://127.0.0.1:6379/0'
+        run: |
+          cd imgw_aggregator
+          python manage.py test weather
+
+      - name: Run Ruff Linter
+        run: |
+          ruff check .
