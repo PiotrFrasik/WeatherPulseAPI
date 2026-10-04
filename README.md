@@ -24,7 +24,7 @@ WeatherPulseAPI is a Django-based REST API that periodically aggregates real-tim
 4. **Virtual Environment**:
    ```bash
    python -m venv venv
-   pip install -r requirements.txt
+   pip install -r requirements.lock
    ```
 
 5. **Migrations and Initial Data**:
