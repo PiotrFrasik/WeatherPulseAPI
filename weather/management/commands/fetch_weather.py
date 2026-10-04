@@ -6,6 +6,7 @@ from django.utils.timezone import make_aware
 
 from weather.models import Station, WeatherMeasurement
 
+
 class Command(BaseCommand):
     help = "Download actual weather from meteo-IMGW"
 

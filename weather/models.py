@@ -1,7 +1,6 @@
 from django.db import models
 
 
-
 class Station(models.Model):
     """Weather station IMGW."""
     code = models.CharField(max_length=20, unique=True)

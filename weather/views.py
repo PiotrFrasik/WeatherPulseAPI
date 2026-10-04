@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from .models import Station, WeatherMeasurement
 from .serializers import StationSerializer, WeatherMeasurementSerializer
 
+
 class StationListView(ListAPIView):
     queryset = Station.objects.all()
     serializer_class = StationSerializer
