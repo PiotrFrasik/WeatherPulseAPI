@@ -12,6 +12,7 @@ COPY requirements.txt requirements.lock ./
 RUN pip install --no-cache-dir -r requirements.lock
 
 COPY . .
+RUN SECRET_KEY=dummy DB_PASSWORD=dummy python manage.py collectstatic --noinput
 RUN chown -R appuser:appuser /app
 
 USER appuser
