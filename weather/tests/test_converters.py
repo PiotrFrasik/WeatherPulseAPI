@@ -1,6 +1,7 @@
 from django.test import TestCase
-from weather.models import Station, WeatherMeasurement
+
 from weather.management.commands.fetch_weather import Command
+from weather.models import Station, WeatherMeasurement
 
 class WeatherConvertersTestCase(TestCase):
     def setUp(self):

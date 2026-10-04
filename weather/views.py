@@ -1,12 +1,11 @@
-from django.db.models import Min, Avg, Max
+from django.db.models import Avg, Max, Min
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import WeatherMeasurement, Station
+
+from .models import Station, WeatherMeasurement
 from .serializers import StationSerializer, WeatherMeasurementSerializer
-from rest_framework.decorators import api_view
-from rest_framework.reverse import reverse
 
 class StationListView(ListAPIView):
     queryset = Station.objects.all()

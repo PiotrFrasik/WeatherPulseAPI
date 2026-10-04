@@ -1,7 +1,9 @@
-import requests
 from datetime import datetime
+
+import requests
 from django.core.management.base import BaseCommand
 from django.utils.timezone import make_aware
+
 from weather.models import Station, WeatherMeasurement
 
 class Command(BaseCommand):
