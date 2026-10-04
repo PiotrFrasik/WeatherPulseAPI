@@ -1,0 +1,10 @@
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+ignore = [
+    "EXE001", # Shebang is present but file is not executable (Windows issue)
+    "RUF012", # Mutable default value for class attribute (Standard in Django)
+    "BLE001", # Catching blind Exception (Keeps the script simple)
+    "DTZ007", # Naive datetime construction
+]
