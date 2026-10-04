@@ -57,3 +57,7 @@ WeatherPulseAPI is a Django-based REST API that periodically aggregates real-tim
 ```bash
 python manage.py test weather
 ```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
