@@ -13,9 +13,10 @@ class Station(models.Model):
 
 class WeatherMeasurement(models.Model):
     """Weather old and new measurements."""
-    station = models.ForeignKey(Station,
-                                on_delete=models.CASCADE,
-                                related_name='measurements')
+
+    station = models.ForeignKey(
+        Station, on_delete=models.CASCADE, related_name="measurements"
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -29,13 +30,13 @@ class WeatherMeasurement(models.Model):
     humidity = models.FloatField(null=True, blank=True)
     rainfall = models.FloatField(null=True, blank=True)
 
-    # Newest measurements will be first
     class Meta:
-        ordering = ['-created_at']
+        ordering = ["-created_at"]
+        unique_together = ("station", "air_temp_date")
         constraints = [
             models.UniqueConstraint(
-                fields=['station', 'air_temp_date'],
-                name='unique_station_air_temp_date'
+                fields=["station", "air_temp_date"],
+                name="unique_station_air_temp_date",
             )
         ]
 
