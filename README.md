@@ -46,6 +46,12 @@ WeatherPulseAPI is a Django-based REST API that periodically aggregates real-tim
 - `/api/schema/` (GET) - OpenAPI 3.0 schema
 - `/api/docs/` (GET) - Swagger UI documentation
 
+## Architecture & Fault Tolerance
+
+- **Task Retries & Backoff**: Celery tasks use `@shared_task` configured with `autoretry_for=(Exception,)`, `retry_backoff=True`, and `max_retries=5` to automatically retry failed requests with exponential delay if the IMGW service is temporarily unavailable.
+- **Request Timeouts**: HTTP requests to IMGW API enforce a 10-second timeout (`timeout=10`).
+- **Idempotency**: Data ingestion uses `WeatherMeasurement.objects.update_or_create(station=..., air_temp_date=...)` along with a database constraint on `(station, air_temp_date)` to guarantee that re-fetching measurements never creates duplicate records.
+
 ## Running Tests
 
 ```bash
@@ -54,4 +60,4 @@ python manage.py test weather
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
