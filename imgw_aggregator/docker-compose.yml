@@ -6,7 +6,7 @@ services:
     environment:
       - POSTGRES_DB=weather_db
       - POSTGRES_USER=weather_user
-      - POSTGRES_PASSWORD=weather_pass123
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-weather_pass123}
     ports:
       - "5433:5432"
     volumes:
@@ -16,6 +16,42 @@ services:
     image: redis:7-alpine
     ports:
       - "6379:6379"
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+      - SECRET_KEY=${SECRET_KEY:-django-insecure-docker-dev-key}
+      - DB_NAME=weather_db
+      - DB_USER=weather_user
+      - DB_PASSWORD=${DB_PASSWORD:-weather_pass123}
+      - DB_HOST=db
+      - DB_PORT=5432
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - db
+      - redis
+
+  celery_worker:
+    build: .
+    command: celery -A core worker -l info
+    environment:
+      - DEBUG=True
+      - SECRET_KEY=${SECRET_KEY:-django-insecure-docker-dev-key}
+      - DB_NAME=weather_db
+      - DB_USER=weather_user
+      - DB_PASSWORD=${DB_PASSWORD:-weather_pass123}
+      - DB_HOST=db
+      - DB_PORT=5432
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - db
+      - redis
 
 volumes:
   postgres_data:
