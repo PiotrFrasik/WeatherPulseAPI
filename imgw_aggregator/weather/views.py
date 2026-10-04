@@ -15,7 +15,7 @@ def api_entry_point(request, format=None):
     """
     return Response({
         'Project description': 'API that aggregates meteorological data from IMGW in real time.',
-        'Weather easurement': reverse('weather_measurement_list', request=request, format=format),
+        'Weather measurement': reverse('weather_measurement_list', request=request, format=format),
         'Weather stations': reverse('station_list', request=request, format=format),
         'Weather stats': reverse('weather_stats', request=request, format=format),
         'Swagger Docs': reverse('swagger-ui', request=request, format=format),
@@ -49,7 +49,7 @@ class WeatherStatsView(APIView):
             lowest_ground_temp=Min('ground_temp'),
             average_ground_temp=Avg('ground_temp'),
             # Humidity
-            srednia_wilgotnosc=Avg('humidity')
+            average_humidity=Avg('humidity')
         )
 
         return Response(stats)
