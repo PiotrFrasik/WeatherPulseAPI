@@ -11,15 +11,9 @@ WeatherPulseAPI is a Django-based REST API that periodically aggregates real-tim
    ```
 
 2. **Environment Variables**:
-   Create a `.env` file in `imgw_aggregator/` with:
-   ```env
-   DEBUG=True
-   SECRET_KEY=django-insecure-your-secret-key-here
-   DB_NAME=weather_db
-   DB_USER=weather_user
-   DB_PASSWORD=weather_pass123
-   DB_HOST=127.0.0.1
-   DB_PORT=5433
+   Copy `.env.example` to `.env` in `imgw_aggregator/` and update your variables:
+   ```bash
+   cp .env.example .env
    ```
 
 3. **Start services**:
