@@ -7,11 +7,11 @@ WeatherPulseAPI is a Django-based REST API that periodically aggregates real-tim
 1. **Clone and navigate**:
    ```bash
    git clone https://github.com/PiotrFrasik/WeatherPulseAPI.git
-   cd WeatherPulseAPI/imgw_aggregator
+   cd WeatherPulseAPI
    ```
 
 2. **Environment Variables**:
-   Copy `.env.example` to `.env` in `imgw_aggregator/` and update your variables:
+   Copy `.env.example` to `.env` and update your variables:
    ```bash
    cp .env.example .env
    ```
