@@ -8,20 +8,6 @@ from .serializers import StationSerializer, WeatherMeasurementSerializer
 from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
 
-@api_view(['GET'])
-def api_entry_point(request, format=None):
-    """
-    Main entry point for the REST API.
-    """
-    return Response({
-        'Project description': 'API that aggregates meteorological data from IMGW in real time.',
-        'Weather measurement': reverse('weather_measurement_list', request=request, format=format),
-        'Weather stations': reverse('station_list', request=request, format=format),
-        'Weather stats': reverse('weather_stats', request=request, format=format),
-        'Swagger Docs': reverse('swagger-ui', request=request, format=format),
-        'Swagger JSON': reverse('schema', request=request, format=format),
-    })
-
 class StationListView(ListAPIView):
     queryset = Station.objects.all()
     serializer_class = StationSerializer
